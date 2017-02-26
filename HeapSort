@@ -1,0 +1,70 @@
+//HeapSort
+// Complexity O (nlogn)
+
+public class HeapSort {
+	
+	public static void printArray(int[] array)
+	{
+		for(int i=0; i< array.length; i++)
+		{
+			System.out.print(array[i] + "\t");
+		}
+		System.out.println();
+	}
+	// hepify for building heap
+	public static void heapify(int [] array,int size, int index)
+	{
+		int largest = index;
+		//System.out.println(array[largest]);
+		int lchild = index * 2, rchild = index * 2 +1;
+		if(lchild < size && array[lchild] > array[largest])
+		{
+			largest = lchild;
+		}
+		if(rchild < size && array[rchild] > array[largest])
+		{
+			largest = rchild;
+		}
+		// swap if any of the children is larger
+		if(largest != index)
+		{
+			int temp = array[largest];
+			array[largest] = array[index];
+			array[index] = temp;
+			heapify(array, size, largest);
+			
+		}
+		
+	}
+	public static void buildMaxHeap(int [] array)
+	{
+		System.out.println("before sorting");
+		printArray(array);
+		for(int i = (array.length/2)-1; i>=0; i--)
+		{
+			heapify(array,array.length,i);
+		}
+		// print array after heapify
+		System.out.println("After building max-heap");
+		printArray(array);
+		
+		// swap with last element
+		for(int i = array.length-1; i>=0; i--)
+		{
+			int temp = array[i];
+			array[i] = array[0];
+			array[0] = temp;
+			heapify(array, i, 0);
+		}
+		System.out.println("after sorting");
+		printArray(array);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+       int [] array = {8,12, 11, 13, 5, 6, 7};
+       buildMaxHeap(array);
+       
+	}
+
+}
