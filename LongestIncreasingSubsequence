@@ -1,0 +1,49 @@
+
+
+// Function to find LIS using Dynamic programming
+
+// Complexity O(n^2)
+
+public class LIS {
+	
+	public static void findLIS(int [] array)
+	{
+		int [] result = new int[array.length];
+		for(int i=0; i< result.length; i++)
+		{
+			result[i] = 1;
+		}
+		for(int i =1; i< array.length; i++)
+		{
+			for(int j=0; j< i; j++)
+			{
+				if(array[i] > array[j] && result[i] < result[j] + 1)
+				{
+					result[i] = result[j] +1;
+				}
+			}
+		}
+		
+		
+		int max = result[0];
+		for(int i =0; i< result.length;i++)
+		{
+			if(max < result[i])
+			{
+				max = result[i];
+			}
+		}
+		System.out.println(max);
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int [] array = {10, 22, 9, 33, 21, 50, 41, 60 };
+		findLIS(array);
+	//	System.out.println(findLIS(array));
+		
+
+	}
+
+}
