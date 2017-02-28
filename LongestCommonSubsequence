@@ -1,0 +1,69 @@
+// LCS of two give string.
+
+// Recursive version: Complexity O( 2 ^ n)
+// Dynamic Programmig: Complexity O(n ^ 2)
+
+public class LCS {
+	
+	public static int max(int x, int y)
+	{
+		return (x>y)?x:y;
+	}
+	
+	public static int lcsDP(char [] xArray, char [] yArray, int m, int n)
+	{
+		int [][] array = new int[m+1][n+1];
+		for(int i =0; i< m+1; i++)
+		{
+			for(int j =0; j< n+1; j++)
+			{
+				if( i==0 || j==0)
+				{
+					array[i][j] = 0;
+				}
+				else if(xArray[i-1] == yArray[j-1])
+				{
+					array[i][j] = 1+ + array[i-1][j-1];
+				}
+				else
+				{
+					array[i][j] = max(array[i-1][j], array[i][j-1]);
+				}
+			}
+		}
+		
+		return array[m][n];
+		
+		
+	}
+	
+	public static int findLCS(char[] xArray, char [] yArray, int m, int n)
+	{
+	   if(m == 0 || n == 0)
+	   {
+		   return 0;
+	   }
+		if(xArray[m-1] == yArray[n-1])
+	   {
+		   return 1 + findLCS(xArray, yArray, m-1, n-1);
+	   }
+		
+		else
+		{
+		  return max(findLCS(xArray, yArray, m,n-1), findLCS(xArray, yArray,m-1,n));
+		}
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String x = "AGGTAB";
+		String y = "GXTXAYZ";
+		int length = findLCS(x.toCharArray(), y.toCharArray(), x.length(), y.length());
+		System.out.println(length);
+		System.out.println(lcsDP(x.toCharArray(), y.toCharArray(), x.length(), y.length()));
+		
+
+	}
+
+}
