@@ -1,0 +1,120 @@
+import java.util.*;
+
+public class NumberOfConnectedIslands {
+    
+    // check safety of cell
+    public static boolean isSafe(int matrix[][], int row, int column){
+        int ROWCOUNT = matrix.length;
+        int COLUMNCOUNT = matrix[0].length;
+        if( row < ROWCOUNT && column < COLUMNCOUNT && row > -1 && column > -1 && matrix[row][column] == 1){
+            return true;
+        }
+        return false;
+    }
+    // set null values
+    
+    public static void DFS(int matrix[][], int row, int column){
+        matrix[row][column] = 0; // set the cell to zero
+        
+        // set the neighbors of cell to null recursively
+       /* for(int k = 0; k < 8; k++){
+            for(){
+                
+            }
+        }*/
+        // upper row
+        /*for(int i = row -1, j = column -1 ; j <= column + 1; j++ ){
+            if(isSafe(matrix, i, j) && matrix[i][j] == 1){
+                DFS(matrix, i, j);
+            }
+        }
+        // lower row
+        
+         for(int i = row + 1, j = column -1 ; j <= column + 1; j++ ){
+             if(isSafe(matrix, i, j) && matrix[i][j] == 1){
+                DFS(matrix, i, j);
+            }
+        }
+        //same row avoid exact cell
+        for(int i = row, j = column -1; j <= column +1; j++ ){
+            if( i != row && j!= column){ //skip same cell
+                 if(isSafe(matrix, i, j) && matrix[i][j] == 1){
+                DFS(matrix, i, j);
+            }
+            }
+        }*/
+        
+        
+        for(int r = row -1; r <=row+1; r++){
+            for(int c = column -1; c<= column + 1; c++){
+                if((r != row || c != column)){ // skip same cell
+                if(isSafe(matrix, r, c) && matrix[r][c] == 1){
+                DFS(matrix, r, c);
+               }
+               }
+            }
+        }
+    }
+    
+    // count number of islands
+    public static int countIslands(int matrix [][]){
+        int islandCounts = 0;
+        if(matrix == null){
+            islandCounts = 0;
+        }
+        for(int i = 0 ; i< matrix.length; i++){
+            for(int j = 0; j< matrix[0].length; j++){
+                if(matrix[i][j] == 1){
+                    DFS(matrix, i, j);
+                    islandCounts ++;
+                }
+            }
+            
+           // System.out.println();
+        }
+        
+        return islandCounts;
+    }
+    
+    // print matrix
+    
+    public static void printMatrix(int matrix[][]){
+        for(int i = 0; i < matrix.length; i++ ){
+            for(int j = 0; j < matrix[0].length; j++){
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
+    }
+    
+    // driver program
+    public static void main(String args[]) {
+        
+        // matrix for insland
+        int matrix [] [] =  new int [] []{{1, 1, 0, 0, 0}, 
+                                 {0, 1, 0, 0, 1}, 
+                                 {1, 0, 1, 1, 1}, 
+                                 {0, 1, 0, 0, 0}, 
+                                 {1, 0, 1, 1, 1}} ;
+        
+        
+        /*{
+                                {0,1,0},
+                                {0,1,0},
+                                {1,1,1}
+        };*/
+        
+        /*
+          {1, 1, 0, 0, 0}, 
+                                 {0, 1, 0, 0, 1}, 
+                                 {1, 0, 0, 1, 1}, 
+                                 {0, 0, 0, 0, 0}, 
+                                 {1, 0, 1, 0, 1} 
+        
+        */
+        
+        System.out.println("Number of islands:" + countIslands(matrix));
+       // printMatrix(matrix);
+      
+    }
+}
