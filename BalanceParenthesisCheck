@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class BalanceParenthesis {
+    
+    // check is parenthesis is balanced
+    public static boolean isBalancedParenthesis(String input){
+        boolean result = false;
+        Stack<Character> stack = new Stack<Character>();
+        for(int i = 0; i < input.length(); i++){
+            // edge case
+            
+            if(stack.empty() && (input.charAt(i) == ')' || input.charAt(i) == '}' || input.charAt(i) == ']')){
+                stack.push( input.charAt(i));
+                result = false;
+                break;
+            }
+            //  push open parenthesis
+            if(input.charAt(i) == '(' || input.charAt(i) == '{' || input.charAt(i) == '['){
+                stack.push(input.charAt(i));
+            }
+            
+            if(input.charAt(i) == ')' || input.charAt(i) == '}' || input.charAt(i) == ']'){
+                Character ch = stack.peek();
+                if(ch == '(' && input.charAt(i) == ')'){
+                    stack.pop();
+                }
+                else if(ch == '{' && input.charAt(i) == '}'){
+                    stack.pop();
+                }
+                else if(ch == '[' && input.charAt(i) == ']'){
+                    stack.pop();
+                }
+            }
+            
+        }
+        // check size of stack
+        if(stack.empty()){
+            result = true;
+        }
+        return result;
+    }
+    
+    // driver program
+    public static void main(String args[]) {
+        System.out.println(isBalancedParenthesis("("));
+    }
+}
